@@ -35,6 +35,12 @@ class SaleController extends Controller
                 'total_amount' => 0
             ]);
 
+            if ($request->note) {
+                $sale->notes()->create([
+                    'body' => $request->note,
+                ]);
+            }
+
             $total_price = 0;
             foreach ($products as $product) {
                 $discount = $product['discount'] ?? 0;

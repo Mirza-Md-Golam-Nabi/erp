@@ -28,6 +28,10 @@
                             <input type="date" class="form-control" name="sale_date" value={{ now() }}>
                         </div>
                         <div class="mb-3">
+                            <label for="note" class="form-label">Note</label>
+                            <input type="text" class="form-control" name="note">
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Product</label>
                             <div id="product-container">
                                 <div class="row product-row mb-2">
