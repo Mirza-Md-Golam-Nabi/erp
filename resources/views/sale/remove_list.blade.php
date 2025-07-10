@@ -9,11 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                    <a href="{{ route('sale.removed') }}" class="btn btn-sm btn-danger mt-2">Removed Sale</a>
+                    <a href="{{ route('sale.list') }}" class="btn btn-sm btn-primary mt-2">Sale List</a>
                     <table class="table table-striped mt-2">
                         <thead>
                             <tr>
@@ -36,7 +32,7 @@
                                             data-bs-target="#details{{ $sale->id }}">
                                             Details
                                         </button>
-                                        <a href="{{ route('sale.delete', $sale->id) }}" class="btn btn-sm btn-danger">Remove</a>
+                                        <a href="{{ route('sale.restore', $sale->id) }}" class="btn btn-sm btn-danger">Restore</a>
                                     </td>
                                 </tr>
                                 <tr class="collapse" id="details{{ $sale->id }}">

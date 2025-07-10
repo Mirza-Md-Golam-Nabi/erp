@@ -77,4 +77,44 @@ class SaleController extends Controller
             'sales' => $sales
         ]);
     }
+
+    public function delete(Sale $sale)
+    {
+        $sale->delete();
+
+        return redirect()->route('sale.list');
+    }
+
+    public function removed()
+    {
+        $sales = Sale::onlyTrashed()
+            ->with('customer', 'sale_items', 'sale_items.product', 'notes')
+            ->get();
+
+        return view('sale.remove_list')->with([
+            'sales' => $sales
+        ]);
+    }
+
+    public function restore($sale_id)
+    {
+        $sale = Sale::onlyTrashed()->find($sale_id);
+
+        if (! $sale) {
+            session()->flash('error', 'Sale ID does not find out.');
+            return redirect()->route('sale.removed');
+        }
+
+        $sale->restore();
+
+        session()->flash('success', 'Successfully restored the sale');
+
+        $sales = Sale::onlyTrashed()
+            ->with('customer', 'sale_items', 'sale_items.product', 'notes')
+            ->get();
+
+        return view('sale.remove_list')->with([
+            'sales' => $sales
+        ]);
+    }
 }

@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/sale/create', [SaleController::class, 'create'])->name('sale.create');
     Route::post('/sale/store', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sale/list', [SaleController::class, 'list'])->name('sale.list');
+    Route::get('/sale/{sale}/delete', [SaleController::class, 'delete'])->name('sale.delete');
+    Route::get('/sale/removed', [SaleController::class, 'removed'])->name('sale.removed');
+    Route::get('/sale/{sale}/restore', [SaleController::class, 'restore'])->name('sale.restore');
 });
 
 require __DIR__ . '/auth.php';
