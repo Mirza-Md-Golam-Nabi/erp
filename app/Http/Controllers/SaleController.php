@@ -68,4 +68,13 @@ class SaleController extends Controller
             return response()->json(['status' => false, 'message' => 'Please try again.']);
         }
     }
+
+    public function list()
+    {
+        $sales = Sale::with('customer', 'sale_items', 'sale_items.product', 'notes')->get();
+
+        return view('sale.list')->with([
+            'sales' => $sales
+        ]);
+    }
 }
