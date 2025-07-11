@@ -15,10 +15,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('product.create')" :active="request()->routeIs('product.create')">
+                    <x-nav-link :href="route('product.create')" :active="request()->routeIs('product.*')">
                         {{ __('Product') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('sale.create')" :active="request()->routeIs('sale.create')">
+                    <x-nav-link :href="route('sale.create')" :active="request()->routeIs('sale.*')">
                         {{ __('Sale') }}
                     </x-nav-link>
                 </div>

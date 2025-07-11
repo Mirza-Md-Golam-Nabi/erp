@@ -16,12 +16,16 @@ class ProductSeeder extends Seeder
         $products = $this->products();
 
         foreach ($products as $product) {
-            Product::create([
+            $product = Product::create([
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
+
+            $product->notes()->createMany(array_map(function () {
+                return ['body' => fake()->realText(50)];
+            }, range(1, rand(1, 3))));
         }
     }
 

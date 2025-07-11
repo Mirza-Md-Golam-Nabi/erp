@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Sale List') }}
+            {{ __('Remove Sale List') }}
         </h2>
     </x-slot>
 
@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @include('msg')
                     <a href="{{ route('sale.list') }}" class="btn btn-sm btn-primary mt-2">Sale List</a>
                     <table class="table table-striped mt-2">
                         <thead>
@@ -32,7 +33,8 @@
                                             data-bs-target="#details{{ $sale->id }}">
                                             Details
                                         </button>
-                                        <a href="{{ route('sale.restore', $sale->id) }}" class="btn btn-sm btn-danger">Restore</a>
+                                        <a href="{{ route('sale.restore', $sale->id) }}"
+                                            class="btn btn-sm btn-danger">Restore</a>
                                     </td>
                                 </tr>
                                 <tr class="collapse" id="details{{ $sale->id }}">
@@ -88,6 +90,10 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $sales->links() }}
+                    </div>
                 </div>
             </div>
         </div>

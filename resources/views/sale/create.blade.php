@@ -164,7 +164,7 @@
                 let formData = $(this).serialize();
 
                 $.ajax({
-                    url: '{{ route('sales.store') }}',
+                    url: '{{ route('sale.store') }}',
                     method: 'POST',
                     data: formData,
                     success: handleSuccessResponse,

@@ -69,9 +69,28 @@ class SaleController extends Controller
         }
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $sales = Sale::with('customer', 'sale_items', 'sale_items.product', 'notes')->get();
+        $query = Sale::query();
+
+        if (filled($request->input('customer_name'))) {
+            $customer_id = Customer::where('name', 'like', '%' . $request->input('customer_name') . '%')
+                ->pluck('id');
+
+            if ($customer_id) {
+                $query->whereIn('customer_id', $customer_id);
+            }
+        }
+
+        if (filled($request->input('date_from')) && filled($request->input('date_to'))) {
+            $query->whereBetween('sale_date', [
+                $request->input('date_from'),
+                $request->input('date_to')
+            ])->orderBy('sale_date', 'desc');
+        }
+
+        $sales = $query->with('customer', 'sale_items', 'sale_items.product', 'notes')
+            ->paginate(5);
 
         return view('sale.list')->with([
             'sales' => $sales
@@ -82,6 +101,8 @@ class SaleController extends Controller
     {
         $sale->delete();
 
+        session()->flash('success', 'Successfully removed.');
+
         return redirect()->route('sale.list');
     }
 
@@ -89,7 +110,7 @@ class SaleController extends Controller
     {
         $sales = Sale::onlyTrashed()
             ->with('customer', 'sale_items', 'sale_items.product', 'notes')
-            ->get();
+            ->paginate(3);
 
         return view('sale.remove_list')->with([
             'sales' => $sales
@@ -111,7 +132,7 @@ class SaleController extends Controller
 
         $sales = Sale::onlyTrashed()
             ->with('customer', 'sale_items', 'sale_items.product', 'notes')
-            ->get();
+            ->paginate(3);
 
         return view('sale.remove_list')->with([
             'sales' => $sales

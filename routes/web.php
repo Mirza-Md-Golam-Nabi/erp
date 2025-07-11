@@ -18,17 +18,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
-    Route::post('/product/note', [ProductController::class, 'note'])->name('product.note');
+    Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/list', 'list')->name('list');
+        Route::post('/note', 'note')->name('note');
+    });
 
-    Route::get('/sale/create', [SaleController::class, 'create'])->name('sale.create');
-    Route::post('/sale/store', [SaleController::class, 'store'])->name('sales.store');
-    Route::get('/sale/list', [SaleController::class, 'list'])->name('sale.list');
-    Route::get('/sale/{sale}/delete', [SaleController::class, 'delete'])->name('sale.delete');
-    Route::get('/sale/removed', [SaleController::class, 'removed'])->name('sale.removed');
-    Route::get('/sale/{sale}/restore', [SaleController::class, 'restore'])->name('sale.restore');
+    Route::prefix('sale')->name('sale.')->controller(SaleController::class)->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/list', 'list')->name('list');
+        Route::get('/removed', 'removed')->name('removed');
+        Route::get('/{sale}/delete', 'delete')->name('delete');
+        Route::get('/{sale}/restore', 'restore')->name('restore');
+    });
 });
 
 require __DIR__ . '/auth.php';

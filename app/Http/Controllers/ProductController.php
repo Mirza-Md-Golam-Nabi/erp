@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        $products = Product::with('notes')->get();
+        $products = Product::with('notes')->paginate(5);
 
         return view('product.list')->with([
             'products' => $products
