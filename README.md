@@ -51,13 +51,19 @@ php artisan migrate --seed
 6. Run the application
 
 ```sh
-php artisan serve
+npm install
 ```
 
 and
 
 ```sh
 npm run build
+```
+
+and
+
+```sh
+php artisan serve
 ```
 
 ✅ When the seeder file is executed, a default user is created in the users table.
