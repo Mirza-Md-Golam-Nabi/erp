@@ -3,7 +3,7 @@
 1. Clone the repository
 
 ```sh
-https://github.com/Mirza-Md-Golam-Nabi/erp.git
+git clone https://github.com/Mirza-Md-Golam-Nabi/erp.git
 ```
 
 2. Goto project folder
