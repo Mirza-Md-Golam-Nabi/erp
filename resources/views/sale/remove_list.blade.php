@@ -29,7 +29,7 @@
                                     <td class="text-center">{{ $sale->sale_date }}</td>
                                     <td class="text-right">{{ $sale->total_amount }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-primary" data-bs-toggle="collapse"
+                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#details{{ $sale->id }}">
                                             Details
                                         </button>
@@ -37,56 +37,7 @@
                                             class="btn btn-sm btn-danger">Restore</a>
                                     </td>
                                 </tr>
-                                <tr class="collapse" id="details{{ $sale->id }}">
-                                    <td colspan="5">
-                                        <div class="p-3 bg-light rounded">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <h6>Sale Items:</h6>
-                                                    <ul class="list-group">
-                                                        @php
-                                                            $discount = 0;
-                                                        @endphp
-                                                        @foreach ($sale->sale_items as $item)
-                                                            <li class="list-group-item d-flex justify-content-between">
-                                                                <span>{{ $item->product->name }}</span>
-                                                                <span>({{ $item->quantity }} x {{ $item->price }}) -
-                                                                    {{ $item->discount }} =
-                                                                    {{ $item->quantity * $item->price - $item->discount }}</span>
-                                                            </li>
-                                                            @php
-                                                                $discount += $item->discount;
-                                                            @endphp
-                                                        @endforeach
-                                                    </ul>
-                                                    <div class="mt-2 fw-bold text-right">Discount:
-                                                        {{ number_format($discount, 2) }}</div>
-                                                    <div class="mt-2 fw-bold text-right">Total:
-                                                        {{ $sale->total_amount }}</div>
-                                                </div>
-
-
-                                                <div class="col-md-5">
-                                                    <div class="p-3 bg-light rounded">
-                                                        <h6>Note:</h6>
-                                                        <ul class="list-group">
-                                                            @forelse ($sale->notes as $note)
-                                                                <li class="list-group-item text-wrap text-break w-100">
-                                                                    {{ $note->body }}
-                                                                </li>
-                                                            @empty
-                                                                <li
-                                                                    class="list-group-item d-flex justify-content-between">
-                                                                    There is no note
-                                                                </li>
-                                                            @endforelse
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </td>
-                                </tr>
+                                @include('includes.sale.details_modal')
                             @endforeach
                         </tbody>
                     </table>

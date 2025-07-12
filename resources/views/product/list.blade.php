@@ -26,7 +26,7 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->price }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-primary" data-bs-toggle="collapse"
+                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#note{{ $product->id }}">
                                             View
                                         </button>
@@ -36,27 +36,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="collapse" id="note{{ $product->id }}">
-                                    <td colspan="4">
-                                        <div class="p-3 bg-light rounded">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <h6>All Notes:</h6>
-                                                    <ul class="list-group">
-                                                        @forelse ($product->notes as $note)
-                                                            <li class="list-group-item text-wrap text-break w-100">
-                                                                <b>{{ $note->created_at }}</b> - {{ $note->body }}
-                                                            </li>
-                                                        @empty
-                                                            <li class="list-group-item d-flex justify-content-between">
-                                                                There is no note
-                                                            </li>
-                                                        @endforelse
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                    </td>
-                                </tr>
+                                @include('includes.product_note_modal')
                                 @include('includes.product_modal')
                             @empty
                                 <tr>
